@@ -15,6 +15,10 @@ import java.util.Random;
  */
 public class JBoardFrame extends javax.swing.JFrame {
     static int j1pos = 0;
+    static int j2pos = 0;
+    static int j3pos = 0;
+    static int j4pos = 0;
+    static int dicecounter = 1;
     static Color PLAYER_ONE_COLOR = new Color(255, 85, 86);
     static Color PLAYER_TWO_COLOR = new Color(155, 255, 155);
     static Color PLAYER_THREE_COLOR = new Color(124, 124, 255);
@@ -1181,10 +1185,38 @@ public class JBoardFrame extends javax.swing.JFrame {
         Random rnd = new Random();
         int val = rnd.nextInt(getDiceButton().MAXVAL)+1;
         getDiceButton().setValue(val);
-        getBoardBox(j1pos).setPlayer1(false);
-        j1pos+=val;
-        if (j1pos>31) j1pos=0;
-        getBoardBox(j1pos).setPlayer1(true);
+
+        switch (dicecounter) {
+            case 1 :
+                getBoardBox(j1pos).setPlayer1(false);
+                j1pos+=val;
+                if (j1pos>31) j1pos=0;
+                getBoardBox(j1pos).setPlayer1(true);
+                dicecounter = 2;
+                break ;
+            case 2 :
+                getBoardBox(j2pos).setPlayer2(false);
+                j2pos+=val;
+                if (j2pos>31) j2pos=0;
+                getBoardBox(j2pos).setPlayer2(true);
+                dicecounter = 3;
+                break ;
+            case 3 :
+                getBoardBox(j3pos).setPlayer3(false);
+                j3pos+=val;
+                if (j3pos>31) j3pos=0;
+                getBoardBox(j3pos).setPlayer3(true);
+                dicecounter = 4;
+                break ;
+            case 4 :
+                getBoardBox(j4pos).setPlayer4(false);
+                j4pos+=val;
+                if (j4pos>31) j4pos=0;
+                getBoardBox(j4pos).setPlayer4(true);
+                dicecounter = 1;
+                break ;
+        }
+
     }//GEN-LAST:event_cmdDiceMouseClicked
 
     private void cmdAcquisitionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdAcquisitionsMouseClicked
