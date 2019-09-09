@@ -19,16 +19,13 @@ public class JBoardFrame extends javax.swing.JFrame {
     static int j3pos = 0;
     static int j4pos = 0;
     static int dicecounter = 1;
-    static int j1account = 1500;
-    static int j2account = 1500;
-    static int j3account = 1500;
-    static int j4account = 1500;
     static int eventnumber = 0;
     static int eventimpact = 0;
     static Color PLAYER_ONE_COLOR = new Color(255, 85, 86);
     static Color PLAYER_TWO_COLOR = new Color(155, 255, 155);
     static Color PLAYER_THREE_COLOR = new Color(124, 124, 255);
     static Color PLAYER_FOUR_COLOR = new Color(255, 131, 255);
+
 
     /**
      * Creates new form BoardFrame (this is how the game starts, initialization)
@@ -354,7 +351,7 @@ public class JBoardFrame extends javax.swing.JFrame {
 
         lblMails1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         lblMails1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblMails1.setText("1500");
+        lblMails1.setText("0");
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel2.setText("Number of mails");
@@ -742,7 +739,7 @@ public class JBoardFrame extends javax.swing.JFrame {
 
         lblMails3.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         lblMails3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblMails3.setText("1500");
+        lblMails3.setText("0");
 
         jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel11.setText("Number of mails");
@@ -819,7 +816,7 @@ public class JBoardFrame extends javax.swing.JFrame {
 
         lblMails4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         lblMails4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblMails4.setText("1500");
+        lblMails4.setText("0");
 
         jLabel14.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel14.setText("Number of mails");
@@ -897,7 +894,7 @@ public class JBoardFrame extends javax.swing.JFrame {
 
         lblMails2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         lblMails2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblMails2.setText("1500");   /** this line has been added by Ilya */
+        lblMails2.setText("0");   /** this line has been added by Ilya */
 
         jLabel17.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel17.setText("Number of mails");
@@ -1167,6 +1164,14 @@ public class JBoardFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /** accounts value at the beginning */
+
+    static int j1account = 1500;
+    static int j2account = 1500;
+    static int j3account = 1500;
+    static int j4account = 1500;
+    lblBalance4.setText(String.valueOf(j1account)) ;
+
     private void cmdDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdDiceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmdDiceActionPerformed
@@ -1193,7 +1198,6 @@ public class JBoardFrame extends javax.swing.JFrame {
         Random rnd = new Random();
         int val = rnd.nextInt(getDiceButton().MAXVAL)+1;
         getDiceButton().setValue(val);
-
         switch (dicecounter) {
             case 1 :
                 getBoardBox(j1pos).setPlayer1(false);
@@ -1239,19 +1243,88 @@ public class JBoardFrame extends javax.swing.JFrame {
         getEventButton().setCurrentEvent(val);/** Set the new value of the currentevent number to cmdEvents, a JeventButton type */
         eventnumber = val;  /** Here I have to translate each card into a precise value */
 
+
+
         switch (eventnumber) {
             case 1:
                 eventimpact = -600;
+                break;
             case 2:
                 eventimpact = -500;
+                break;
             case 3:
+            case 23:
                 eventimpact = -100;
-                ...
+                break;
+            case 4:
+            case 19 :
+                eventimpact = 100;
+                break;
+            case 5 :
+            case 8 :
+            case 15 :
+                eventimpact = 200;
+                break;
+            case 6 :
+            case 16 :
+                eventimpact = 600;
+                break;
+            case 7 :
+                eventimpact = -200;
+                break;
+            case 9 :
+            case 21 :
+            case 12 :
+                eventimpact = -400;
+                break;
+            case 10 :
+                eventimpact = -300;
+                break;
+            case 11 :
+            case 17 :
+                eventimpact = 400;
+                break;
+            case 13 :
+                eventimpact = -800;
+                break;
+            case 14 :
+                eventimpact = 300;
+                break;
+            case 18 :
+                eventimpact = -50;
+                break;
+            case 20 :
+                eventimpact = 500;
+                break;
+            case 22 :
+                eventimpact = 800;
+                break;
         }
 
+        switch(dicecounter) {
+            case 1 :
+                j4account += eventimpact;
+                System.out.println("player 4 acc : " + j4account);
+                lblBalance4.setText(String.valueOf(j4account));
+                break;
+            case 2:
+                j1account += eventimpact;
+                System.out.println("player 1 acc : " + j1account);
+                lblBalance1.setText(String.valueOf(j1account));
+                break;
+            case 3 :
+                j2account += eventimpact;
+                System.out.println("player 2 acc : " + j2account);
+                lblBalance2.setText(String.valueOf(j2account));
+                break;
+            case 4 :
+                j3account += eventimpact;
+                System.out.println("player 3 acc : " + j3account);
+                lblBalance3.setText(String.valueOf(j3account));
+                break;
 
 
-
+        }
 
     }//GEN-LAST:event_cmdEventsMouseClicked
 
