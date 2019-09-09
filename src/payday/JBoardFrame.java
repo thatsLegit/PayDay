@@ -19,6 +19,12 @@ public class JBoardFrame extends javax.swing.JFrame {
     static int j3pos = 0;
     static int j4pos = 0;
     static int dicecounter = 1;
+    static int j1account = 1500;
+    static int j2account = 1500;
+    static int j3account = 1500;
+    static int j4account = 1500;
+    static int eventnumber = 0;
+    static int eventimpact = 0;
     static Color PLAYER_ONE_COLOR = new Color(255, 85, 86);
     static Color PLAYER_TWO_COLOR = new Color(155, 255, 155);
     static Color PLAYER_THREE_COLOR = new Color(124, 124, 255);
@@ -1229,8 +1235,24 @@ public class JBoardFrame extends javax.swing.JFrame {
 
     private void cmdEventsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdEventsMouseClicked
         Random rnd = new Random();
-        int val = rnd.nextInt(getEventButton().MAXVAL)+1;
-        getEventButton().setCurrentEvent(val);
+        int val = rnd.nextInt(getEventButton().MAXVAL)+1;  /** Here we choose a random number from 1 to 23 */
+        getEventButton().setCurrentEvent(val);/** Set the new value of the currentevent number to cmdEvents, a JeventButton type */
+        eventnumber = val;  /** Here I have to translate each card into a precise value */
+
+        switch (eventnumber) {
+            case 1:
+                eventimpact = -600;
+            case 2:
+                eventimpact = -500;
+            case 3:
+                eventimpact = -100;
+                ...
+        }
+
+
+
+
+
     }//GEN-LAST:event_cmdEventsMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

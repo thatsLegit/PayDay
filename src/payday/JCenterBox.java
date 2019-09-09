@@ -79,9 +79,9 @@ public class JCenterBox extends javax.swing.JPanel {
         g.setFont(g.getFont().deriveFont(50.0f).deriveFont(Font.BOLD));
         g.setColor(Color.WHITE);
         FontMetrics metrics = g.getFontMetrics(g.getFont());
-        g.drawString("10", (this.getWidth() - metrics.stringWidth("10")) / 2, 
+        g.drawString("0", (this.getWidth() - metrics.stringWidth("0")) / 2,
                 ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent());
-
+        /**Modify here to add money to the cagnotte? */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
