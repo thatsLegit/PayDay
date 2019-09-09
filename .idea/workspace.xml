@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e79b395f-a66a-408a-93b9-ab536fda8de5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/~$tes_Payday.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$10.class" afterDir="false" />
@@ -17,9 +15,7 @@
       <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$8.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$9.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JCenterBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JCenterBox.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/payday/JBoardFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/payday/JBoardFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/payday/JCenterBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/payday/JCenterBox.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
