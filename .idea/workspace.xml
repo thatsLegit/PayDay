@@ -2,8 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e79b395f-a66a-408a-93b9-ab536fda8de5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PayDay/payday/JBoardFrame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/payday/JBoardFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/payday/JBoardFrame.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -70,10 +81,22 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/payday/JAcquisitionButton.java</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
