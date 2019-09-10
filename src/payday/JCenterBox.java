@@ -77,7 +77,7 @@ public class JCenterBox extends javax.swing.JPanel {
             g.drawImage(img.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_FAST), 0, 0, null);
         }
         g.setFont(g.getFont().deriveFont(50.0f).deriveFont(Font.BOLD));
-        g.setColor(Color.WHITE);
+        g.setColor(Color.GREEN);
         FontMetrics metrics = g.getFontMetrics(g.getFont());
         g.drawString(String.valueOf(value), (this.getWidth() - metrics.stringWidth("0")) / 2,
                 ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent());

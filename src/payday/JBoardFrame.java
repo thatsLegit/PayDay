@@ -32,12 +32,12 @@ public class JBoardFrame extends javax.swing.JFrame {
     static int eventnumber;
     static int eventimpact;
     static int cagnottevalue;
+    static int mailnumber;
+    static int mailimpact;
     static Color PLAYER_ONE_COLOR = new Color(255, 85, 86);
     static Color PLAYER_TWO_COLOR = new Color(155, 255, 155);
     static Color PLAYER_THREE_COLOR = new Color(124, 124, 255);
     static Color PLAYER_FOUR_COLOR = new Color(255, 131, 255);
-
-    JCenterBox jCenterBox = new JCenterBox();
 
     /**
      * Creates new form BoardFrame (this is how the game starts, initialization)
@@ -1196,11 +1196,6 @@ public class JBoardFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmdEventsActionPerformed
 
-    private void cmdMailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdMailsMouseClicked
-        Random rnd = new Random();
-        int val = rnd.nextInt(getMailButton().MAXVAL)+1;
-        getMailButton().setCurrentMail(val);
-    }//GEN-LAST:event_cmdMailsMouseClicked
 
     private void cmdDiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdDiceMouseClicked
         Random rnd = new Random();
@@ -1423,11 +1418,125 @@ public class JBoardFrame extends javax.swing.JFrame {
                 System.out.println("player 3 acc : " + j3account);
                 lblBalance3.setText(String.valueOf(j3account));
                 break;
+        }
+    }//GEN-LAST:event_cmdEventsMouseClicked
 
 
+    private void cmdMailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdMailsMouseClicked
+        Random rnd = new Random();
+        int val = rnd.nextInt(getMailButton().MAXVAL)+1;
+        getMailButton().setCurrentMail(val);
+        mailnumber = val;
+
+        switch (mailnumber) {
+            case 1 :
+                mailimpact = -400;
+                break;
+            case 2:
+            case 38:
+            case 4:
+            case 7:
+                mailimpact = -250;
+                break;
+            case 3:
+            case 42:
+            case 22:
+            case 21:
+            case 14:
+            case 8:
+                mailimpact = -100;
+                break;
+            case 5:
+            case 39:
+            case 6:
+                mailimpact = -450;
+                break;
+            case 9:
+            case 36:
+            case 30:
+            case 28:
+            case 13:
+                mailimpact = -300;
+                break;
+            case 10:
+            case 37:
+            case 25:
+            case 19:
+            case 11:
+                mailimpact = -50;
+                break;
+            case 12:
+            case 15:
+            case 17:
+                System.out.println("medical insurance");
+                break;
+            case 16:
+                mailimpact = 450;
+                break;
+            case 18:
+            case 34:
+            case 33:
+            case 20:
+                mailimpact = -150;
+                break;
+            case 23:
+            case 45:
+            case 47:
+            case 46:
+            case 49:
+            case 48:
+            case 40:
+            case 31:
+                break;
+            case 24:
+            case 27:
+                System.out.println("car insurance");
+                break;
+            case 26:
+                break;
+            case 29:
+            case 35:
+                mailimpact = 50;
+                break;
+            case 32:
+                mailimpact = 100;
+                break;
+            case 41:
+                mailimpact = -600;
+                break;
+            case 43:
+            case 44:
+                System.out.println("Joker");
+                break;
         }
 
-    }//GEN-LAST:event_cmdEventsMouseClicked
+
+        /** Affecting the result to the right account */
+        switch(dicecounter) {
+            case 1 :
+                j4account += mailimpact;
+                System.out.println("player 4 acc : " + j4account);
+                lblBalance4.setText(String.valueOf(j4account));
+                break;
+            case 2:
+                j1account += mailimpact;
+                System.out.println("player 1 acc : " + j1account);
+                lblBalance1.setText(String.valueOf(j1account));
+                break;
+            case 3 :
+                j2account += mailimpact;
+                System.out.println("player 2 acc : " + j2account);
+                lblBalance2.setText(String.valueOf(j2account));
+                break;
+            case 4 :
+                j3account += mailimpact;
+                System.out.println("player 3 acc : " + j3account);
+                lblBalance3.setText(String.valueOf(j3account));
+                break;
+
+        }
+    }//GEN-LAST:event_cmdMailsMouseClicked
+
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
