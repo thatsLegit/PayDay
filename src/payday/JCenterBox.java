@@ -13,22 +13,23 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  *
  * @author cussat
  */
 public class JCenterBox extends javax.swing.JPanel {
-    
-    protected Image img;
-    protected int value = 0;
+
+    public Image img;
+    static int value = 0;
 
     public int getValue() {
         return value;
     }
 
     public void setValue(int value) {
-        this.value = value;
+        JCenterBox.value = value;
         this.repaint();
     }
 
@@ -70,16 +71,15 @@ public class JCenterBox extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (img != null) {
             g.drawImage(img.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_FAST), 0, 0, null);
         }
-        
         g.setFont(g.getFont().deriveFont(50.0f).deriveFont(Font.BOLD));
         g.setColor(Color.WHITE);
         FontMetrics metrics = g.getFontMetrics(g.getFont());
-        g.drawString("0", (this.getWidth() - metrics.stringWidth("0")) / 2,
+        g.drawString(String.valueOf(value), (this.getWidth() - metrics.stringWidth("0")) / 2,
                 ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent());
         /**Modify here to add money to the cagnotte? */
     }

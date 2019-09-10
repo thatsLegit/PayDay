@@ -1,6 +1,7 @@
 package payday;
 
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Random;
 
 /*
@@ -14,18 +15,29 @@ import java.util.Random;
  * @author cussat
  */
 public class JBoardFrame extends javax.swing.JFrame {
-    static int j1pos = 0;
-    static int j2pos = 0;
-    static int j3pos = 0;
-    static int j4pos = 0;
+    static int j1pos;
+    static int j2pos;
+    static int j3pos;
+    static int j4pos;
+    static int j1account = 1500;
+    static int j2account = 1500;
+    static int j3account = 1500;
+    static int j4account = 1500;
+    static int j1mailsnumber;
+    static int j2mailsnumber;
+    static int j3mailsnumber;
+    static int j4mailsnumber;
+    static int valdice;
     static int dicecounter = 1;
-    static int eventnumber = 0;
-    static int eventimpact = 0;
+    static int eventnumber;
+    static int eventimpact;
+    static int cagnottevalue;
     static Color PLAYER_ONE_COLOR = new Color(255, 85, 86);
     static Color PLAYER_TWO_COLOR = new Color(155, 255, 155);
     static Color PLAYER_THREE_COLOR = new Color(124, 124, 255);
     static Color PLAYER_FOUR_COLOR = new Color(255, 131, 255);
 
+    JCenterBox jCenterBox = new JCenterBox();
 
     /**
      * Creates new form BoardFrame (this is how the game starts, initialization)
@@ -45,7 +57,11 @@ public class JBoardFrame extends javax.swing.JFrame {
         pnlPlayer2.setBackground(PLAYER_TWO_COLOR);
         pnlPlayer3.setBackground(PLAYER_THREE_COLOR);
         pnlPlayer4.setBackground(PLAYER_FOUR_COLOR);
-        
+
+        lblBalance1.setText("1500");  /** Set the default accounts values */
+        lblBalance2.setText("1500");
+        lblBalance3.setText("1500");
+        lblBalance4.setText("1500");
     }
 
     /**
@@ -73,7 +89,6 @@ public class JBoardFrame extends javax.swing.JFrame {
         bcCase25 = new payday.JBoardBox(25, payday.JBoardBox.CaseType.Acquisition);
         bcCase28 = new payday.JBoardBox(28, payday.JBoardBox.CaseType.Sunday);
         bcCase30 = new payday.JBoardBox(30, payday.JBoardBox.CaseType.Lotery);
-        ccCenter = new payday.JCenterBox();
         pnlPlayer1 = new javax.swing.JPanel();
         lblPlayerName1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -134,6 +149,7 @@ public class JBoardFrame extends javax.swing.JFrame {
         lstAcquisitions2 = new javax.swing.JList<>();
         cmdDice = new JDiceButton();
         jButton1 = new javax.swing.JButton();
+        ccCenter = new payday.JCenterBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("La Bonne Paye");
@@ -1164,14 +1180,6 @@ public class JBoardFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /** accounts value at the beginning */
-
-    static int j1account = 1500;
-    static int j2account = 1500;
-    static int j3account = 1500;
-    static int j4account = 1500;
-    lblBalance4.setText(String.valueOf(j1account)) ;
-
     private void cmdDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdDiceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmdDiceActionPerformed
@@ -1198,33 +1206,109 @@ public class JBoardFrame extends javax.swing.JFrame {
         Random rnd = new Random();
         int val = rnd.nextInt(getDiceButton().MAXVAL)+1;
         getDiceButton().setValue(val);
-        switch (dicecounter) {
+        switch (dicecounter) {                /** Make players move orderdely */
             case 1 :
                 getBoardBox(j1pos).setPlayer1(false);
                 j1pos+=val;
-                if (j1pos>31) j1pos=0;
+                valdice = val;
+                if (valdice == 6) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
+                    j1account += cagnottevalue;
+                    lblBalance1.setText(String.valueOf(j1account));
+                    System.out.println("player 1 wins the cagnotte : " + cagnottevalue);
+                    cagnottevalue = 0;
+                    ccCenter.setValue(cagnottevalue); }
+                if (j1pos>31) j1pos=0;                 /** Payday ==> go to day 0 */
                 getBoardBox(j1pos).setPlayer1(true);
+                if ((j1pos == 1) || (j1pos == 11) || (j1pos == 18) || (j1pos == 24)) {       /** create the mails counter for player 1 here */
+                    j1mailsnumber += 1;
+                    lblMails1.setText(String.valueOf(j1mailsnumber));
+                }
+                if ((j1pos == 5) || (j1pos == 27)) {
+                    j1mailsnumber += 2;
+                    lblMails1.setText(String.valueOf(j1mailsnumber));
+                }
+                if ((j1pos == 3) || (j1pos == 16)) {
+                    j1mailsnumber += 3;
+                    lblMails1.setText(String.valueOf(j1mailsnumber));
+                }
                 dicecounter = 2;
                 break ;
             case 2 :
                 getBoardBox(j2pos).setPlayer2(false);
                 j2pos+=val;
+                valdice = val;
+                if (valdice == 6) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
+                    j2account += cagnottevalue;
+                    lblBalance2.setText(String.valueOf(j2account));
+                    System.out.println("player 2 wins the cagnotte : " + cagnottevalue);
+                    cagnottevalue = 0;
+                    ccCenter.setValue(cagnottevalue);}
                 if (j2pos>31) j2pos=0;
                 getBoardBox(j2pos).setPlayer2(true);
+                if ((j2pos == 1) || (j2pos == 11) || (j2pos == 18) || (j2pos == 24)) {       /** create the mails counter for player 2 here */
+                    j2mailsnumber += 1;
+                    lblMails2.setText(String.valueOf(j2mailsnumber));
+                }
+                if ((j2pos == 5) || (j2pos == 27)) {
+                    j2mailsnumber += 2;
+                    lblMails2.setText(String.valueOf(j2mailsnumber));
+                }
+                if ((j2pos == 3) || (j2pos == 16)) {
+                    j2mailsnumber += 3;
+                    lblMails2.setText(String.valueOf(j2mailsnumber));
+                }
                 dicecounter = 3;
                 break ;
             case 3 :
                 getBoardBox(j3pos).setPlayer3(false);
                 j3pos+=val;
+                valdice = val;
+                if (valdice == 6) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
+                    j3account += cagnottevalue;
+                    lblBalance3.setText(String.valueOf(j3account));
+                    System.out.println("player 3 wins the cagnotte : " + cagnottevalue);
+                    cagnottevalue = 0;
+                    ccCenter.setValue(cagnottevalue);}
                 if (j3pos>31) j3pos=0;
                 getBoardBox(j3pos).setPlayer3(true);
+                if ((j3pos == 1) || (j3pos == 11) || (j3pos == 18) || (j3pos == 24)) {       /** create the mails counter for player 3 here */
+                    j3mailsnumber += 1;
+                    lblMails3.setText(String.valueOf(j3mailsnumber));
+                }
+                if ((j3pos == 5) || (j3pos == 27)) {
+                    j3mailsnumber += 2;
+                    lblMails3.setText(String.valueOf(j3mailsnumber));
+                }
+                if ((j3pos == 3) || (j3pos == 16)) {
+                    j3mailsnumber += 3;
+                    lblMails3.setText(String.valueOf(j3mailsnumber));
+                }
                 dicecounter = 4;
                 break ;
             case 4 :
                 getBoardBox(j4pos).setPlayer4(false);
                 j4pos+=val;
+                valdice = val;
+                if (valdice == 6) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
+                    j4account += cagnottevalue;
+                    lblBalance4.setText(String.valueOf(j4account));
+                    System.out.println("player 4 wins the cagnotte : " + cagnottevalue);
+                    cagnottevalue = 0;
+                    ccCenter.setValue(cagnottevalue);}
                 if (j4pos>31) j4pos=0;
                 getBoardBox(j4pos).setPlayer4(true);
+                if ((j4pos == 1) || (j4pos == 11) || (j4pos == 18) || (j4pos == 24)) {       /** create the mails counter for player 4 here */
+                    j4mailsnumber += 1;
+                    lblMails4.setText(String.valueOf(j4mailsnumber));
+                }
+                if ((j4pos == 5) || (j4pos == 27)) {
+                    j4mailsnumber += 2;
+                    lblMails4.setText(String.valueOf(j4mailsnumber));
+                }
+                if ((j4pos == 3) || (j4pos == 16)) {
+                    j4mailsnumber += 3;
+                    lblMails4.setText(String.valueOf(j4mailsnumber));
+                }
                 dicecounter = 1;
                 break ;
         }
@@ -1237,24 +1321,30 @@ public class JBoardFrame extends javax.swing.JFrame {
         getAcquisitionButton().setCurrentAcquisition(val);
     }//GEN-LAST:event_cmdAcquisitionsMouseClicked
 
+    JCenterBox ccCenter = new JCenterBox();  /** cagnotte works with this object only */
     private void cmdEventsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdEventsMouseClicked
         Random rnd = new Random();
         int val = rnd.nextInt(getEventButton().MAXVAL)+1;  /** Here we choose a random number from 1 to 23 */
         getEventButton().setCurrentEvent(val);/** Set the new value of the currentevent number to cmdEvents, a JeventButton type */
         eventnumber = val;  /** Here I have to translate each card into a precise value */
 
-
-
+        /** Here I implement the result of the event */
         switch (eventnumber) {
             case 1:
                 eventimpact = -600;
+                cagnottevalue += 600;
+                ccCenter.setValue(cagnottevalue);
                 break;
             case 2:
                 eventimpact = -500;
+                cagnottevalue += 500;
+                ccCenter.setValue(cagnottevalue);
                 break;
             case 3:
             case 23:
                 eventimpact = -100;
+                cagnottevalue += 100;
+                ccCenter.setValue(cagnottevalue);
                 break;
             case 4:
             case 19 :
@@ -1271,14 +1361,20 @@ public class JBoardFrame extends javax.swing.JFrame {
                 break;
             case 7 :
                 eventimpact = -200;
+                cagnottevalue += 200;
+                ccCenter.setValue(cagnottevalue);
                 break;
             case 9 :
             case 21 :
             case 12 :
                 eventimpact = -400;
+                cagnottevalue += 400;
+                ccCenter.setValue(cagnottevalue);
                 break;
             case 10 :
                 eventimpact = -300;
+                cagnottevalue += 300;
+                ccCenter.setValue(cagnottevalue);
                 break;
             case 11 :
             case 17 :
@@ -1286,12 +1382,16 @@ public class JBoardFrame extends javax.swing.JFrame {
                 break;
             case 13 :
                 eventimpact = -800;
+                cagnottevalue += 800;
+                ccCenter.setValue(cagnottevalue);
                 break;
             case 14 :
                 eventimpact = 300;
                 break;
             case 18 :
                 eventimpact = -50;
+                cagnottevalue += 50;
+                ccCenter.setValue(cagnottevalue);
                 break;
             case 20 :
                 eventimpact = 500;
@@ -1301,6 +1401,7 @@ public class JBoardFrame extends javax.swing.JFrame {
                 break;
         }
 
+        /** Affecting the result to the right account */
         switch(dicecounter) {
             case 1 :
                 j4account += eventimpact;
@@ -1355,7 +1456,7 @@ public class JBoardFrame extends javax.swing.JFrame {
     
     public JBoardBox getBoardBox(int n) {
         switch (n) {
-            case 0: return (JBoardBox) bcCase0;
+            case 0: return (JBoardBox) bcCase0;   /**???? */
             case 1: return (JBoardBox) bcCase1;
             case 2: return (JBoardBox) bcCase2;
             case 3: return (JBoardBox) bcCase3;
@@ -1461,7 +1562,6 @@ public class JBoardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel bcCase7;
     private javax.swing.JPanel bcCase8;
     private javax.swing.JPanel bcCase9;
-    private javax.swing.JPanel ccCenter;
     private javax.swing.JButton cmdAcquisitions;
     private javax.swing.JButton cmdDice;
     private javax.swing.JButton cmdEvents;
