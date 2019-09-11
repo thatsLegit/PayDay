@@ -1206,7 +1206,7 @@ public class JBoardFrame extends javax.swing.JFrame {
                 getBoardBox(j1pos).setPlayer1(false);
                 j1pos+=val;
                 valdice = val;
-                if (valdice == 6) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
+                if (valdice == 6 && cagnottevalue != 0) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
                     j1account += cagnottevalue;
                     lblBalance1.setText(String.valueOf(j1account));
                     System.out.println("player 1 wins the cagnotte : " + cagnottevalue);
