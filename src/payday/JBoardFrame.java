@@ -1216,12 +1216,13 @@ public class JBoardFrame extends javax.swing.JFrame {
                 getBoardBox(j1pos).setPlayer1(false);
                 j1pos+=val;
                 valdice = val;
-                if (valdice == 6 && cagnottevalue != 0) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
+                if ((valdice == 6) && (cagnottevalue != 0)) {         /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
                     j1account += cagnottevalue;
                     String message = "player 1 wins the cagnotte : " + cagnottevalue;
                     this.Popup(message);
                     cagnottevalue = 0;
-                    ccCenter.setValue(cagnottevalue); }
+                    ccCenter.setValue(cagnottevalue);
+                }
                 if (j1pos>31) j1pos=0;                 /** Payday ==> go to day 0 */
                 getBoardBox(j1pos).setPlayer1(true);
                 if (j1pos == 0) {
@@ -1281,7 +1282,7 @@ public class JBoardFrame extends javax.swing.JFrame {
                 getBoardBox(j2pos).setPlayer2(false);
                 j2pos+=val;
                 valdice = val;
-                if (valdice == 6) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
+                if ((valdice == 6) && (cagnottevalue != 0)) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
                     j2account += cagnottevalue;
                     String message = "player 2 wins the cagnotte : " + cagnottevalue;
                     this.Popup(message);
@@ -1349,7 +1350,7 @@ public class JBoardFrame extends javax.swing.JFrame {
                 getBoardBox(j3pos).setPlayer3(false);
                 j3pos+=val;
                 valdice = val;
-                if (valdice == 6) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
+                if ((valdice == 6) && (cagnottevalue != 0)) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
                     j3account += cagnottevalue;
                     String message = "player 3 wins the cagnotte : " + cagnottevalue;
                     this.Popup(message);
@@ -1417,7 +1418,7 @@ public class JBoardFrame extends javax.swing.JFrame {
                 getBoardBox(j4pos).setPlayer4(false);
                 j4pos+=val;
                 valdice = val;
-                if (valdice == 6) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
+                if ((valdice == 6) && (cagnottevalue != 0)) {                 /** If the value of the dice is 6, then the account is credited with the value of the cagnotte */
                     j4account += cagnottevalue;
                     String message = "player 4 wins the cagnotte : " + cagnottevalue;
                     this.Popup(message);
