@@ -1,7 +1,10 @@
 package payday;
 
+import com.sun.jdi.BooleanType;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -37,7 +40,13 @@ public class JBoardFrame extends javax.swing.JFrame {
     static int cagnottevalue;
     static int mailnumber;
     static int mailimpact;
-    static boolean eventpass = true;
+    static boolean eventpass = false;
+    static boolean paydaypass = false;
+    static ArrayList<Boolean> j1insurance;
+    static ArrayList<Boolean> j2insurance;
+    static ArrayList<Boolean> j3insurance;
+    static ArrayList<Boolean> j4insurance;
+    static boolean carinsurance = false;
     static Color PLAYER_ONE_COLOR = new Color(255, 85, 86);
     static Color PLAYER_TWO_COLOR = new Color(155, 255, 155);
     static Color PLAYER_THREE_COLOR = new Color(124, 124, 255);
@@ -67,6 +76,23 @@ public class JBoardFrame extends javax.swing.JFrame {
         lblBalance2.setText("1500");
         lblBalance3.setText("1500");
         lblBalance4.setText("1500");
+
+        j1insurance = new ArrayList<>();
+        j1insurance.add(false);
+        j1insurance.add(false);
+
+        j2insurance = new ArrayList<>();
+        j2insurance.add(false);
+        j2insurance.add(false);
+
+        j3insurance = new ArrayList<>();
+        j3insurance.add(false);
+        j3insurance.add(false);
+
+        j4insurance = new ArrayList<>();
+        j4insurance.add(false);
+        j4insurance.add(false);
+
     }
 
     public void Popup(String message) {
@@ -1226,6 +1252,7 @@ public class JBoardFrame extends javax.swing.JFrame {
                 if (j1pos>31) j1pos=0;                 /** Payday ==> go to day 0 */
                 getBoardBox(j1pos).setPlayer1(true);
                 if (j1pos == 0) {
+                    paydaypass = true;
                     String message = "PLAYER 1 : YOU HAVE " + j1mailsnumber + " UNREAD MAIL(S)! DON'T FORGET ABOUT YOUR PAY ! ";
                     this.Popup(message);
                 }
@@ -1291,6 +1318,7 @@ public class JBoardFrame extends javax.swing.JFrame {
                 if (j2pos>31) j2pos=0;
                 getBoardBox(j2pos).setPlayer2(true);
                 if (j2pos == 0) {
+                    paydaypass = true;
                     String message = "PLAYER 2 : YOU HAVE " + j2mailsnumber + " UNREAD MAIL(S)! DON'T FORGET ABOUT YOUR PAY ! ";
                     this.Popup(message);
                 }
@@ -1359,6 +1387,7 @@ public class JBoardFrame extends javax.swing.JFrame {
                 if (j3pos>31) j3pos=0;
                 getBoardBox(j3pos).setPlayer3(true);
                 if (j3pos == 0) {
+                    paydaypass = true;
                     String message = "PLAYER 3 : YOU HAVE " + j3mailsnumber + " UNREAD MAIL(S)! DON'T FORGET ABOUT YOUR PAY ! ";
                     this.Popup(message);
                 }
@@ -1427,6 +1456,7 @@ public class JBoardFrame extends javax.swing.JFrame {
                 if (j4pos>31) j4pos=0;
                 getBoardBox(j4pos).setPlayer4(true);
                 if (j4pos == 0) {
+                    paydaypass = true;
                     String message = "PLAYER 4 : YOU HAVE " + j4mailsnumber + " UNREAD MAIL(S)! DON'T FORGET ABOUT YOUR PAY ! ";
                     this.Popup(message);
                 }
@@ -1759,35 +1789,39 @@ public class JBoardFrame extends javax.swing.JFrame {
         jpd.setVisible(true); */
 
         /** The JPayDayFrame wasn't working properly so we decided to replace it by a payday distribution button */
-        switch(dicecounter) {
-            case 1:
-                if (j4pos == 0) {
-                    j4account += 1500;
-                    lblBalance4.setText(String.valueOf(j4account));
-                    break;
-                }
-            case 2:
-                if (j1pos == 0) {
-                    j1account += 1500;
-                    lblBalance1.setText(String.valueOf(j1account));
-                    break;
-                }
 
-            case 3:
-                if (j2pos == 0) {
-                    j2account += 1500;
-                    lblBalance2.setText(String.valueOf(j2account));
-                    break;
-                }
-
-            case 4:
-                if (j3pos == 0) {
-                    j3account += 1500;
-                    lblBalance3.setText(String.valueOf(j3account));
-                    break;
-                }
+        if (paydaypass) {
+            switch (dicecounter) {
+                case 1:
+                    if (j4pos == 0) {
+                        j4account += 1500;
+                        lblBalance4.setText(String.valueOf(j4account));
+                        break;
+                    }
+                case 2:
+                    if (j1pos == 0) {
+                        j1account += 1500;
+                        lblBalance1.setText(String.valueOf(j1account));
+                        break;
+                    }
+                case 3:
+                    if (j2pos == 0) {
+                        j2account += 1500;
+                        lblBalance2.setText(String.valueOf(j2account));
+                        break;
+                    }
+                case 4:
+                    if (j3pos == 0) {
+                        j3account += 1500;
+                        lblBalance3.setText(String.valueOf(j3account));
+                        break;
+                    }
+            }
+        } else { String message = " YOU HAVEN'T REACHED THE PAYDAY YET OR HAVE JUST RECEIVED IT !";
+            this.Popup(message);
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+        paydaypass = false;
+        }//GEN-LAST:event_cmdEventsMouseClicked
 
 
     public JDiceButton getDiceButton() {
