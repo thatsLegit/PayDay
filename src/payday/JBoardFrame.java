@@ -38,7 +38,6 @@ public class JBoardFrame extends javax.swing.JFrame {
     static int dicecounter = 1;
     static int eventimpact;
     static int cagnottevalue;
-    static int mailnumber;
     static int mailimpact;
     static boolean eventpass = false;
     static boolean paydaypass = false;
@@ -46,10 +45,10 @@ public class JBoardFrame extends javax.swing.JFrame {
     static HashMap<String, Boolean> j2insurance = new HashMap<>();
     static HashMap<String, Boolean> j3insurance = new HashMap<>();
     static HashMap<String, Boolean> j4insurance = new HashMap<>();
-    static Boolean doctorbill = false;
-    static Boolean carbill = false;
-    ArrayList<Integer> discardedEvents = new ArrayList<>();
-    ArrayList<Integer> discardedMails = new ArrayList<>();
+    ArrayList<Integer> EventsNumber = new ArrayList<>();
+    ArrayList<Integer> MailsNumber = new ArrayList<>();
+    ArrayList<Integer> StoreEvents = new ArrayList<>();
+    ArrayList<Integer> StoreMails = new ArrayList<>();
     static Color PLAYER_ONE_COLOR = new Color(255, 85, 86);
     static Color PLAYER_TWO_COLOR = new Color(155, 255, 155);
     static Color PLAYER_THREE_COLOR = new Color(124, 124, 255);
@@ -87,12 +86,21 @@ public class JBoardFrame extends javax.swing.JFrame {
         j2insurance.put("Medical insurance", false);
         j2insurance.put("Car insurance", false);
 
-        j2insurance.put("Medical insurance", false);
-        j2insurance.put("Car insurance", false);
+        j3insurance.put("Medical insurance", false);
+        j3insurance.put("Car insurance", false);
 
-        j2insurance.put("Medical insurance", false);
-        j2insurance.put("Car insurance", false);
+        j4insurance.put("Medical insurance", false);
+        j4insurance.put("Car insurance", false);
 
+        int i;
+        for (i=0;i<23;i++) {
+            EventsNumber.add(i+1);
+        }
+        for (i=0;i<49;i++) {
+            MailsNumber.add(i+1);
+        }
+        StoreEvents = EventsNumber;
+        StoreMails = MailsNumber;
     }
 
     public void Popup(String message) {
@@ -1538,12 +1546,13 @@ public class JBoardFrame extends javax.swing.JFrame {
         if (eventpass) {
 
             Random rnd = new Random();
-            int val = getRandomWithExclusion(rnd,0, 23, discardedEvents) + 1;   /** Here we choose a random number from 1 to 23 */
+            int index = rnd.nextInt(EventsNumber.size());
+            int val = EventsNumber.get(index);
             getEventButton().setCurrentEvent(val);   /** Set the new value of the currentevent number to cmdEvents, a JeventButton type */
-            discardedEvents.add(val);
+            EventsNumber.remove(index);
 
-            if (discardedEvents.size() == 23) {   /** clearing the discarded events stack when all cards have been discarded */
-                discardedEvents.clear();
+            if (EventsNumber.size() == 0) {   /** clearing the discarded events stack when all cards have been discarded */
+                EventsNumber = StoreEvents;
             }
 
             /** Here I implement the result of the event */
@@ -1650,13 +1659,17 @@ public class JBoardFrame extends javax.swing.JFrame {
 
     private void cmdMailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdMailsMouseClicked
         Random rnd = new Random();
-        int val = getRandomWithExclusion(rnd,0, 49, discardedMails) + 1;   /** Here we choose a random number from 1 to 49 */
+        int index = rnd.nextInt(MailsNumber.size());
+        int val = MailsNumber.get(index);
         getMailButton().setCurrentMail(val);   /** Set the new value of the currentmails number to cmdMails, a JMailButton type */
-        discardedMails.add(val);
+        MailsNumber.remove(index);
 
-        if (discardedMails.size() == 49) {   /** clearing the discarded mails stack when all cards have been discarded */
-            discardedMails.clear();
+        if (MailsNumber.size() == 0) {   /** clearing the discarded mails stack when all cards have been discarded */
+            MailsNumber = StoreMails;
         }
+
+        boolean doctorbill = false;
+        boolean carbill = false;
 
         /** Calculate the impact of the selected mail */
         switch (val) {
