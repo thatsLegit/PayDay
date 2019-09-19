@@ -1,15 +1,10 @@
 package payday;
 
-import com.sun.jdi.BooleanType;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
