@@ -5,6 +5,7 @@ import com.sun.jdi.BooleanType;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -35,23 +36,26 @@ public class JBoardFrame extends javax.swing.JFrame {
     static int j4mailsnumber;
     static int valdice;
     static int dicecounter = 1;
-    static int eventnumber;
     static int eventimpact;
     static int cagnottevalue;
     static int mailnumber;
     static int mailimpact;
     static boolean eventpass = false;
     static boolean paydaypass = false;
-    static ArrayList<Boolean> j1insurance;
-    static ArrayList<Boolean> j2insurance;
-    static ArrayList<Boolean> j3insurance;
-    static ArrayList<Boolean> j4insurance;
-    static boolean carinsurance = false;
+    static HashMap<String, Boolean> j1insurance = new HashMap<>();
+    static HashMap<String, Boolean> j2insurance = new HashMap<>();
+    static HashMap<String, Boolean> j3insurance = new HashMap<>();
+    static HashMap<String, Boolean> j4insurance = new HashMap<>();
+    static Boolean doctorbill = false;
+    static Boolean carbill = false;
+    ArrayList<Integer> discardedEvents = new ArrayList<>();
+    ArrayList<Integer> discardedMails = new ArrayList<>();
     static Color PLAYER_ONE_COLOR = new Color(255, 85, 86);
     static Color PLAYER_TWO_COLOR = new Color(155, 255, 155);
     static Color PLAYER_THREE_COLOR = new Color(124, 124, 255);
     static Color PLAYER_FOUR_COLOR = new Color(255, 131, 255);
     JCenterBox ccCenter = new JCenterBox();  /** cagnotte works with this object only */
+
 
     /**
      * Creates new form BoardFrame (this is how the game starts, initialization)
@@ -77,26 +81,33 @@ public class JBoardFrame extends javax.swing.JFrame {
         lblBalance3.setText("1500");
         lblBalance4.setText("1500");
 
-        j1insurance = new ArrayList<>();
-        j1insurance.add(false);
-        j1insurance.add(false);
+        j1insurance.put("Medical insurance", false);
+        j1insurance.put("Car insurance", false);
 
-        j2insurance = new ArrayList<>();
-        j2insurance.add(false);
-        j2insurance.add(false);
+        j2insurance.put("Medical insurance", false);
+        j2insurance.put("Car insurance", false);
 
-        j3insurance = new ArrayList<>();
-        j3insurance.add(false);
-        j3insurance.add(false);
+        j2insurance.put("Medical insurance", false);
+        j2insurance.put("Car insurance", false);
 
-        j4insurance = new ArrayList<>();
-        j4insurance.add(false);
-        j4insurance.add(false);
+        j2insurance.put("Medical insurance", false);
+        j2insurance.put("Car insurance", false);
 
     }
 
     public void Popup(String message) {
         JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public int getRandomWithExclusion(Random rnd, int start, int end, ArrayList<Integer> exclude) {
+        int random = start + rnd.nextInt(end - start + 1 - exclude.size());
+        for (Integer ex : exclude) {
+            if (random < ex) {
+                break;
+            }
+            random++;
+        }
+        return random;
     }
 
     /**
@@ -1527,13 +1538,17 @@ public class JBoardFrame extends javax.swing.JFrame {
         if (eventpass) {
 
             Random rnd = new Random();
-            int val = rnd.nextInt(getEventButton().MAXVAL)+1;  /** Here we choose a random number from 1 to 23 */
-            getEventButton().setCurrentEvent(val);/** Set the new value of the currentevent number to cmdEvents, a JeventButton type */
-            eventnumber = val;  /** Here I have to translate each card into a precise value */
+            int val = getRandomWithExclusion(rnd,0, 23, discardedEvents) + 1;   /** Here we choose a random number from 1 to 23 */
+            getEventButton().setCurrentEvent(val);   /** Set the new value of the currentevent number to cmdEvents, a JeventButton type */
+            discardedEvents.add(val);
+
+            if (discardedEvents.size() == 23) {   /** clearing the discarded events stack when all cards have been discarded */
+                discardedEvents.clear();
+            }
 
             /** Here I implement the result of the event */
 
-            switch (eventnumber) {
+            switch (val) {
                 case 1:
                     eventimpact = -600;
                     cagnottevalue += 600;
@@ -1610,22 +1625,18 @@ public class JBoardFrame extends javax.swing.JFrame {
             switch (dicecounter) {
                 case 1:
                     j4account += eventimpact;
-                    System.out.println("player 4 acc : " + j4account);
                     lblBalance4.setText(String.valueOf(j4account));
                     break;
                 case 2:
                     j1account += eventimpact;
-                    System.out.println("player 1 acc : " + j1account);
                     lblBalance1.setText(String.valueOf(j1account));
                     break;
                 case 3:
                     j2account += eventimpact;
-                    System.out.println("player 2 acc : " + j2account);
                     lblBalance2.setText(String.valueOf(j2account));
                     break;
                 case 4:
                     j3account += eventimpact;
-                    System.out.println("player 3 acc : " + j3account);
                     lblBalance3.setText(String.valueOf(j3account));
                     break;
             }
@@ -1639,42 +1650,70 @@ public class JBoardFrame extends javax.swing.JFrame {
 
     private void cmdMailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdMailsMouseClicked
         Random rnd = new Random();
-        int val = rnd.nextInt(getMailButton().MAXVAL)+1;
-        getMailButton().setCurrentMail(val);
-        mailnumber = val;
+        int val = getRandomWithExclusion(rnd,0, 49, discardedMails) + 1;   /** Here we choose a random number from 1 to 49 */
+        getMailButton().setCurrentMail(val);   /** Set the new value of the currentmails number to cmdMails, a JMailButton type */
+        discardedMails.add(val);
+
+        if (discardedMails.size() == 49) {   /** clearing the discarded mails stack when all cards have been discarded */
+            discardedMails.clear();
+        }
 
         /** Calculate the impact of the selected mail */
-        switch (mailnumber) {
+        switch (val) {
             case 1 :
                 mailimpact = -400;
                 break;
             case 2:
-            case 38:
             case 4:
+                mailimpact = -250;
+                break;
             case 7:
+                carbill = true;
+                mailimpact = -250;
+                break;
+            case 38:
+                doctorbill = true;
                 mailimpact = -250;
                 break;
             case 3:
-            case 42:
             case 22:
-            case 21:
             case 14:
             case 8:
                 mailimpact = -100;
                 break;
+            case 42:
+                carbill = true;
+                mailimpact = -100;
+                break;
+            case 21:
+                doctorbill = true;
+                mailimpact = -100;
+                break;
             case 5:
             case 39:
+                carbill = true;
+                mailimpact = -450;
+                break;
             case 6:
+                doctorbill = true;
                 mailimpact = -450;
                 break;
             case 9:
-            case 36:
             case 30:
+                carbill = true;
+                mailimpact = -300;
+                break;
+            case 36:
+                mailimpact = -300;
+                break;
             case 28:
             case 13:
+                doctorbill = true;
                 mailimpact = -300;
                 break;
             case 10:
+                doctorbill = true;
+                mailimpact = -50;
             case 37:
             case 25:
             case 19:
@@ -1684,15 +1723,31 @@ public class JBoardFrame extends javax.swing.JFrame {
             case 12:
             case 15:
             case 17:
-                System.out.println("medical insurance");
+                int optiondoctor = JOptionPane.showConfirmDialog(null, "Do you want to BUY a medical insurance : Yes or No?", "Medical insurance", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (optiondoctor == 0) {
+                    mailimpact = -450;
+                    switch (dicecounter) {
+                        case 1:
+                            j4insurance.put("Medical insurance", true);
+                        case 2:
+                            j1insurance.put("Medical insurance", true);
+                        case 3:
+                            j2insurance.put("Medical insurance", true);
+                        case 4:
+                            j1insurance.put("Medical insurance", true);
+                    }
+                }
                 break;
             case 16:
                 mailimpact = 450;
                 break;
             case 18:
             case 34:
-            case 33:
             case 20:
+                mailimpact = -150;
+                break;
+            case 33:
+                carbill = true;
                 mailimpact = -150;
                 break;
             case 23:
@@ -1704,24 +1759,40 @@ public class JBoardFrame extends javax.swing.JFrame {
             case 40:
             case 31:
             case 26:
+                mailimpact = 0;
                 break;
             case 24:
             case 27:
-                System.out.println("car insurance");
+            case 41:
+                int optioncar = JOptionPane.showConfirmDialog(null, "Do you want to BUY a car insurance : Yes or No?", "Car insurance", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (optioncar == 0) {
+                    mailimpact = -600;
+                    switch (dicecounter) {
+                        case 1:
+                            j4insurance.put("Car insurance", true);
+                        case 2:
+                            j1insurance.put("Car insurance", true);
+                        case 3:
+                            j2insurance.put("Car insurance", true);
+                        case 4:
+                            j1insurance.put("Car insurance", true);
+                    }
+                }
                 break;
             case 29:
-            case 35:
                 mailimpact = 50;
+                break;
+            case 35:
+                doctorbill = true;
+                mailimpact = -50;
                 break;
             case 32:
                 mailimpact = 100;
                 break;
-            case 41:
-                mailimpact = -600;
-                break;
             case 43:
             case 44:
                 System.out.println("Joker");
+                mailimpact = 0;
                 break;
         }
 
@@ -1737,8 +1808,25 @@ public class JBoardFrame extends javax.swing.JFrame {
                     if (j4mailsnumber > 0) {
                         j4mailsnumber -= 1;
                         lblMails4.setText(String.valueOf(j4mailsnumber));
+                        if (doctorbill) {
+                            if (j4insurance.get("Medical insurance")) {
+                                break;
+                            } else {
+                                j4account += mailimpact;
+                                lblBalance4.setText(String.valueOf(j4account));
+                                break;
+                            }
+                        }
+                        if (carbill) {
+                            if (j4insurance.get("Car insurance")) {
+                                break;
+                            } else {
+                                j4account += mailimpact;
+                                lblBalance4.setText(String.valueOf(j4account));
+                                break;
+                            }
+                        }
                         j4account += mailimpact;
-                        System.out.println("player 4 acc : " + j4account);
                         lblBalance4.setText(String.valueOf(j4account));
                         break;
                     }
@@ -1748,8 +1836,25 @@ public class JBoardFrame extends javax.swing.JFrame {
                     if (j1mailsnumber > 0) {
                         j1mailsnumber -= 1;
                         lblMails1.setText(String.valueOf(j1mailsnumber));
+                        if (doctorbill) {
+                            if (j1insurance.get("Medical insurance")) {
+                                break;
+                            } else {
+                                j1account += mailimpact;
+                                lblBalance1.setText(String.valueOf(j1account));
+                                break;
+                            }
+                        }
+                        if (carbill) {
+                            if (j1insurance.get("Car insurance")) {
+                                break;
+                            } else {
+                                j1account += mailimpact;
+                                lblBalance1.setText(String.valueOf(j1account));
+                                break;
+                            }
+                        }
                         j1account += mailimpact;
-                        System.out.println("player 1 acc : " + j1account);
                         lblBalance1.setText(String.valueOf(j1account));
                         break;
                     }
@@ -1759,8 +1864,25 @@ public class JBoardFrame extends javax.swing.JFrame {
                     if (j2mailsnumber > 0) {
                         j2mailsnumber -= 1;
                         lblMails2.setText(String.valueOf(j2mailsnumber));
+                        if (doctorbill) {
+                            if (j2insurance.get("Medical insurance")) {
+                                break;
+                            } else {
+                                j2account += mailimpact;
+                                lblBalance2.setText(String.valueOf(j2account));
+                                break;
+                            }
+                        }
+                        if (carbill) {
+                            if (j2insurance.get("Car insurance")) {
+                                break;
+                            } else {
+                                j2account += mailimpact;
+                                lblBalance2.setText(String.valueOf(j2account));
+                                break;
+                            }
+                        }
                         j2account += mailimpact;
-                        System.out.println("player 2 acc : " + j2account);
                         lblBalance2.setText(String.valueOf(j2account));
                         break;
                     }
@@ -1770,8 +1892,25 @@ public class JBoardFrame extends javax.swing.JFrame {
                     if (j3mailsnumber > 0) {
                         j3mailsnumber -= 1;
                         lblMails3.setText(String.valueOf(j3mailsnumber));
+                        if (doctorbill) {
+                            if (j3insurance.get("Medical insurance")) {
+                                break;
+                            } else {
+                                j3account += mailimpact;
+                                lblBalance3.setText(String.valueOf(j3account));
+                                break;
+                            }
+                        }
+                        if (carbill) {
+                            if (j3insurance.get("Car insurance")) {
+                                break;
+                            } else {
+                                j3account += mailimpact;
+                                lblBalance3.setText(String.valueOf(j3account));
+                                break;
+                            }
+                        }
                         j3account += mailimpact;
-                        System.out.println("player 3 acc : " + j3account);
                         lblBalance3.setText(String.valueOf(j3account));
                         break;
                     }
@@ -1842,7 +1981,7 @@ public class JBoardFrame extends javax.swing.JFrame {
     
     public JBoardBox getBoardBox(int n) {
         switch (n) {
-            case 0: return (JBoardBox) bcCase0;   /**???? */
+            case 0: return (JBoardBox) bcCase0;
             case 1: return (JBoardBox) bcCase1;
             case 2: return (JBoardBox) bcCase2;
             case 3: return (JBoardBox) bcCase3;
@@ -1907,11 +2046,7 @@ public class JBoardFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JBoardFrame().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new JBoardFrame().setVisible(true));
     }
 
 
